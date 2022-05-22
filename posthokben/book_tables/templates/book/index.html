@@ -1,0 +1,232 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+{% include 'snippets/titlebar.html' %}
+<body>
+
+	<!--================Header Menu Area =================-->
+	{% include 'snippets/menubar.html' %}
+	<!--================Header Menu Area =================-->
+
+	<!--================ Banner Area =================-->
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content text-center">
+					<h1>Dashboard</h1>
+					<div class="page_link">
+						<a href="/">Home</a>
+						<a href="#">Dashboard</a>
+						<a href="/book-table/">Lap. Penjualan /Menu /Layanan</a>
+					</div>
+				</div>
+			</div>
+			<div class="shape shape1"></div>
+			<div class="shape shape2"></div>
+			<div class="shape shape3"></div>
+			<div class="shape shape4"></div>
+			<div class="shape shape5"></div>
+			<div class="shape shape6"></div>
+			<div class="shape shape7"></div>
+		</div>
+	</section>
+	<!--================End Banner Area =================-->
+
+	<!--================Book Table Area =================-->
+	<section class="book_table_area section_gap">
+		<div class="container">
+			<form action="{% url 'search' %}" method="GET">
+				{% csrf_token %}
+			<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+						  <label for="from_date">Dari Tanggal</label>
+						  <input type="date" class="form-control" id="from_date"  aria-describedby="from_date" name="transaksi_date_from" placeholder="Enter email">
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+						  <label for="to_date">Sampai Tanggal</label>
+						  <input type="date" class="form-control" id="to_date" aria-describedby="to_date" name="transaksi_date_to" placeholder="Tanggal">
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="form-group">
+							<label for="exampleInputPassword1">Layanan</label>
+							<select name="layanan_id" class="form-select" id="layanan_id">
+								<option value="0" disabled selected>Pilih...</option>
+								{% for layanan in list_layanan %}
+									<option value="{{ layanan.id }}">{{ layanan.layanan_name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary" style="margin: 35px 27px 0px 0px;">Search</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="book_table_inner row">
+				<div class="col-lg-12">
+					<table class="table" border="1">
+						<thead>
+							<tr>
+								<th>
+									TANGGAL PENJUALAN
+								</th>
+								<th>
+									KODE MENU
+								</th>
+								<th>
+									NAMA MENU
+								</th>
+								<th>
+									QTY
+								</th>
+								<th>
+									SATUAN
+								</th>
+								<th>
+									GROSS SALES (inc. Pajak)
+								</th>
+								<th>
+									NET SALES (exc. Pajak)
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for x in listdata_1 %}
+							<tr>
+								<td>
+									{{ x.0 }}
+								</td>
+								<td>
+									{{ x.1 }}
+								</td>
+								<td>
+									{{ x.2 }}
+									
+								</td>
+								<td>
+									{{ x.3 }}
+								</td>
+								<td>
+									{{ x.5 }}
+								</td>
+								<td align="right">
+									{{ x.8 }}
+								</td>
+								<td align="right">
+									{{ x.7 }}
+								</td>
+							</tr>
+							{% endfor %}
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Book Table Area =================-->
+
+	<!--================ start footer Area  =================-->
+	<footer class="footer-area p_120">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Top Products</h6>
+						<ul class="list">
+							<li><a href="#">Managed Website</a></li>
+							<li><a href="#">Manage Reputation</a></li>
+							<li><a href="#">Power Tools</a></li>
+							<li><a href="#">Marketing Service</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Quick Links</h6>
+						<ul class="list">
+							<li><a href="#">Jobs</a></li>
+							<li><a href="#">Brand Assets</a></li>
+							<li><a href="#">Investor Relations</a></li>
+							<li><a href="#">Terms of Service</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Features</h6>
+						<ul class="list">
+							<li><a href="#">Jobs</a></li>
+							<li><a href="#">Brand Assets</a></li>
+							<li><a href="#">Investor Relations</a></li>
+							<li><a href="#">Terms of Service</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Resources</h6>
+						<ul class="list">
+							<li><a href="#">Guides</a></li>
+							<li><a href="#">Research</a></li>
+							<li><a href="#">Experts</a></li>
+							<li><a href="#">Agencies</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6">
+					<aside class="f_widget news_widget">
+						<div class="f_title">
+							<h3 class="footer_title">Newsletter</h3>
+						</div>
+						<p>Stay updated with our latest trends</p>
+						<div id="mc_embed_signup">
+							<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+							 method="get" class="subscribe_form relative">
+								<div class="input-group d-flex flex-row">
+									<input name="EMAIL" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
+									 required="" type="email">
+									<button class="btn sub-btn"><span class="lnr lnr-arrow-right"></span></button>
+								</div>
+								<div class="mt-10 info"></div>
+							</form>
+						</div>
+					</aside>
+				</div>
+			</div>
+			<div class="row footer-bottom d-flex justify-content-between align-items-center">
+				<p class="col-lg-8 col-md-8 footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+				<div class="col-lg-4 col-md-4 footer-social">
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-dribbble"></i></a>
+					<a href="#"><i class="fa fa-behance"></i></a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	{% include 'snippets/js.html' %}
+</body>
+<script>
+    $(document).ready(function(){
+      
+        $("#book").addClass("active");
+
+    });
+</script>
+</html>

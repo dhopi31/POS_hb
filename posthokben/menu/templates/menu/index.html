@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+{% include 'snippets/titlebar.html' %}
+<body>
+	<!--================Header Menu Area =================-->
+    {% include 'snippets/menubar.html' %}
+	<!--================Header Menu Area =================-->
+
+	<!--================ Banner Area =================-->
+	<section class="banner_area">
+		<div class="banner_inner d-flex align-items-center">
+			<div class="container">
+				<div class="banner_content text-center">
+					<h1>Menu</h1>
+					<div class="page_link">
+						<a href="/">Home</a>
+						<a href="/menu/">Menu</a>
+					</div>
+				</div>
+			</div>
+			<div class="shape shape1"></div>
+			<div class="shape shape2"></div>
+			<div class="shape shape3"></div>
+			<div class="shape shape4"></div>
+			<div class="shape shape5"></div>
+			<div class="shape shape6"></div>
+			<div class="shape shape7"></div>
+		</div>
+	</section>
+	<!--================End Banner Area =================-->
+
+	<!--================ Menu Area =================-->
+	<section class="menu_area white">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="main_title position-relative">
+						<h1>Make an Order</h1>
+						<hr>
+						<div class="round-planet planet">
+							<div class="round-planet planet2">
+								<div class="shape shape1"></div>
+								<div class="shape shape2"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form id="order-form" method="POST"> 
+				{% csrf_token %}
+				<div class="row menu_inner">
+					<div class="col-md-12 col-lg-12 col-xl-12">
+						<div class="menu_list">
+							<div class="col-md-12 col-lg-12 col-xl-12">
+								<ul class="list">
+									{% for menu in list_menu %}
+									<li>
+											<h3>
+												{{ menu.menu_name }}
+										</h3>
+										{% for komps in menu.ms_komposisi_set.all %}
+										<div class="row">
+											<div class="col-md-10">
+												<input type="hidden" name="komposisi_code[]" value='{{ komps.komposisi_code }}' />
+												<h4>Komposisi {{ komps.layanan_id }} : 
+													<span>{{ komps.harga_id.harga }}</span>
+												</h4>	
+											</div>
+											<div class="col-md-2">
+												<input type="text" style="text-align: right;" id="qty-{{ komps.komposisi_code}}_{{ forloop.counter }}" min="0" class="form-control qty_order" placeholder="Qty" name="qty_porsi[]" onblur="findTotal()" value="0" />	
+												<input type="hidden" id="harga-{{ komps.komposisi_code}}_{{ forloop.counter }}" class="form-control harga" value='{{ komps.harga_id.harga }}' name="harga[]" />
+											</div>
+										</div>
+										{% for detail in komps.ms_komposisi_detail_set.all %}
+										- {{ detail.item_id }} {{ detail.qty}}										
+										{% endfor %}
+										{% endfor %}
+									</li>
+									{% endfor %} 
+								</ul>
+								<div class="book_table_inner row align-items-center text-center">
+									<div class="offset-lg-2 offset-md-1 col-lg-8 col-md-12">
+										<div class="table_form white">
+											<div class="form-group col-md-12">
+												<label for="provinsi">Nama Customer</label>       
+												<input type="text" class="form-control" required id="name" name="customer_name" placeholder="Nama Customer">
+											</div>
+											<div class="form-group col-md-12">
+												<label for="provinsi">Sub Total</label>       
+												<input type="text" class="form-control" readonly style="text-align: right;" id="subTotal" name="sub_value" placeholder="Sub Total">
+											</div>
+											<div class="form-group col-md-12">
+												<label for="provinsi">PPN</label>       
+												<input type="text" class="form-control" readonly style="text-align: right;" id="ppn" name="ppn_value" placeholder="PPN">
+											</div>
+											<div class="form-group col-md-12">
+												<label for="provinsi">Total</label>       
+												<input type="text" class="form-control" readonly style="text-align: right;" id="total" name="total" placeholder="Total">
+											</div>
+											<div class="form-group col-md-12">
+												<label for="provinsi">Jenis Pembayaran</label>
+												<div class="form-select">
+													<select name="pay_type" class="form-control" required>
+														<option value="0" selected disabled>Pilih..</option>
+														<option value="Tunai">Tunai</option>
+														<option value="Flazz Bca">Flazz BCA</option>
+														<option value="EDC Mandiri">EDC Mandiri</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-12">
+												<button type="submit" value="submit" class="btn submit_btn form-control">Make an Order</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+	<!--================End Menu Area =================-->
+
+	<!--================End Book Table Area =================-->
+
+	<!--================ start footer Area  =================-->
+	<footer class="footer-area p_120">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Top Products</h6>
+						<ul class="list">
+							<li>
+								<a href="#">Managed Website</a>
+							</li>
+							<li>
+								<a href="#">Manage Reputation</a>
+							</li>
+							<li>
+								<a href="#">Power Tools</a>
+							</li>
+							<li>
+								<a href="#">Marketing Service</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Quick Links</h6>
+						<ul class="list">
+							<li>
+								<a href="#">Jobs</a>
+							</li>
+							<li>
+								<a href="#">Brand Assets</a>
+							</li>
+							<li>
+								<a href="#">Investor Relations</a>
+							</li>
+							<li>
+								<a href="#">Terms of Service</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Features</h6>
+						<ul class="list">
+							<li>
+								<a href="#">Jobs</a>
+							</li>
+							<li>
+								<a href="#">Brand Assets</a>
+							</li>
+							<li>
+								<a href="#">Investor Relations</a>
+							</li>
+							<li>
+								<a href="#">Terms of Service</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2  col-md-6 col-sm-6">
+					<div class="single-footer-widget tp_widgets">
+						<h6 class="footer_title">Resources</h6>
+						<ul class="list">
+							<li>
+								<a href="#">Guides</a>
+							</li>
+							<li>
+								<a href="#">Research</a>
+							</li>
+							<li>
+								<a href="#">Experts</a>
+							</li>
+							<li>
+								<a href="#">Agencies</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6">
+					<aside class="f_widget news_widget">
+						<div class="f_title">
+							<h3 class="footer_title">Newsletter</h3>
+						</div>
+						<p>Stay updated with our latest trends</p>
+						<div id="mc_embed_signup">
+							<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+							 method="get" class="subscribe_form relative">
+								<div class="input-group d-flex flex-row">
+									<input name="EMAIL" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '"
+									 required="" type="email">
+									<button class="btn sub-btn">
+										<span class="lnr lnr-arrow-right"></span>
+									</button>
+								</div>
+								<div class="mt-10 info"></div>
+							</form>
+						</div>
+					</aside>
+				</div>
+			</div>
+			<div class="row footer-bottom d-flex justify-content-between align-items-center">
+				<p class="col-lg-8 col-md-8 footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+				<div class="col-lg-4 col-md-4 footer-social">
+					<a href="#">
+						<i class="fa fa-facebook"></i>
+					</a>
+					<a href="#">
+						<i class="fa fa-twitter"></i>
+					</a>
+					<a href="#">
+						<i class="fa fa-dribbble"></i>
+					</a>
+					<a href="#">
+						<i class="fa fa-behance"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
+
+	{% include 'snippets/js.html' %}
+
+</body>
+<script>
+    $(document).ready(function(){
+      
+        $("#menu").addClass("active");
+
+		$("#subTotal").val(0);
+		$("#ppn").val(0);
+		$("#total").val(0);
+    });
+	function findTotal(){
+		let arr_qty = document.getElementsByClassName('qty_order');
+		let arr_harga = document.getElementsByClassName('harga');
+		let tot=0;
+		for(let i=0;i<arr_harga.length;i++){
+			if(parseInt(arr_harga[i].value))
+				tot += parseInt(arr_harga[i].value*arr_qty[i].value);
+		}
+		console.log(tot);
+    	document.getElementById('subTotal').value = tot;
+    	document.getElementById('ppn').value = tot*10/100;
+    	document.getElementById('total').value = tot+(tot*10/100);
+	}
+</script>
+</html>

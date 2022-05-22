@@ -1,0 +1,8 @@
+asgiref==3.5.2
+colorama==0.4.4
+Django==3.2.13
+mysqlclient @ file:///E:/dev/hokben_env/mysqlclient-1.4.6-cp37-cp37m-win32.whl
+PyMySQL==1.0.2
+pytz==2022.1
+sqlparse==0.4.2
+typing_extensions==4.2.0
