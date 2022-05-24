@@ -78,9 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hokbendb',
-        'USER': 'superadmin',
-        'PASSWORD': '4dm1n6970',
-        'HOST': 'hokbendb.cw9kp2hrpqus.ap-southeast-1.rds.amazonaws.com',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
